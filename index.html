@@ -1,0 +1,237 @@
+<html>
+
+<head>
+    <title>Assessment</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body class="container" ng-app="app" ng-controller="fundsCtrl">
+    <div class="row form-group">
+        <label>Filter by Investment Name:</label>
+        <input class="form-control" ng-model="search" />
+    </div>
+
+    <div class="row">
+        <table ng-if="fundsData" class="table table-striped ">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Investment Name</th>
+                    <th>Agency</th>
+                    <th>Details</th>
+                    <th>Edit</th>
+                    <tbody>
+                        <tr ng-repeat="fund in fundsData | filter : search">
+                            <td>{{fund.Id}}</td>
+                            <td>{{fund.InvestmentName}}</td>
+                            <td>{{fund.Agency}}</td>
+                            <td><a href="#/details" class="btn btn-primary" ng-click="getFundDetails(fund)" data-toggle="modal" data-target="#detailsModal"><i class="fa fa-info-circle" aria-hidden="true"></i> Details</a></td>
+                            <td><button class="btn btn-default" ng-click="getFundDetails(fund)" data-toggle="modal" data-target="#editFundModal"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button></td>
+                        </tr>
+                    </tbody>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <!--Modal for getting detailed info on a fund-->
+    <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label><strong>Agency:</strong></label>
+                        <input class="form-control" ng-model="detailData.Agency" type="text" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Agency or Mission Related Needs:</strong></label>
+                        <input class="form-control" ng-model="detailData.AgencyOrMissionRelatedNeeds" type="text" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Breif Description</strong></label>
+                        <textarea class="form-control" ng-model="detailData.BriefDescription" ng-disabled="true"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2008</strong></label>
+                        <input class="form-control" ng-model="detailData.FundingFY2008" type="number" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2009</strong></label>
+                        <input class="form-control" ng-model="detailData.FundingFY2009" type="number" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2010</strong></label>
+                        <input class="form-control" ng-model="detailData.FundingFY2010" type="number" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Investment Name:</strong></label>
+                        <input class="form-control" ng-model="detailData.InvestmentName" type="text" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Mission Specific or General STEM:</strong></label>
+                        <input class="form-control" ng-model="detailData.MissionSpecificOrGeneralStem" type="text" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Primary Investment Objective:</strong></label>
+                        <input class="form-control" ng-model="detailData.PrimaryInvestmentObjective" type="text" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Sub-Agency:</strong></label>
+                        <input class="form-control" ng-model="detailData.Subagency" type="text" ng-disabled="true" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Year Established</strong></label>
+                        <input class="form-control" ng-model="detailData.YearEstablished" type="number" ng-disabled="true" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addFundModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Fund</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label><strong>Agency:</strong></label>
+                        <input class="form-control" ng-model="newFund.Agency" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Agency or Mission Related Needs:</strong></label>
+                        <input class="form-control" ng-model="newFund.AgencyOrMissionRelatedNeeds" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Breif Description</strong></label>
+                        <textarea class="form-control" ng-model="newFund.BriefDescription"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2008</strong></label>
+                        <input class="form-control" ng-model="newFund.FundingFY2008" type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2009</strong></label>
+                        <input class="form-control" ng-model="newFund.FundingFY2009" type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2010</strong></label>
+                        <input class="form-control" ng-model="newFund.FundingFY2010" type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Investment Name:</strong></label>
+                        <input class="form-control" ng-model="newFund.InvestmentName" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Mission Specific or General STEM:</strong></label>
+                        <input class="form-control" ng-model="newFund.MissionSpecificOrGeneralStem" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Primary Investment Objective:</strong></label>
+                        <input class="form-control" ng-model="newFund.PrimaryInvestmentObjective" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Sub-Agency:</strong></label>
+                        <input class="form-control" ng-model="newFund.Subagency" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Year Established</strong></label>
+                        <input class="form-control" ng-model="newFund.YearEstablished" type="number" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="addFund(newFund)" data-dismiss="modal"><i class="fa fa-floppy-o" aria-hidden="true" ></i> Save New Fund</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editFundModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Fund</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label><strong>Agency:</strong></label>
+                        <input class="form-control" ng-model="detailData.Agency" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Agency or Mission Related Needs:</strong></label>
+                        <input class="form-control" ng-model="detailData.AgencyOrMissionRelatedNeeds" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Breif Description</strong></label>
+                        <textarea class="form-control" ng-model="detailData.BriefDescription"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2008</strong></label>
+                        <input class="form-control" ng-model="detailData.FundingFY2008" type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2009</strong></label>
+                        <input class="form-control" ng-model="detailData.FundingFY2009" type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Funding FY 2010</strong></label>
+                        <input class="form-control" ng-model="detailData.FundingFY2010" type="number" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Investment Name:</strong></label>
+                        <input class="form-control" ng-model="detailData.InvestmentName" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Mission Specific or General STEM:</strong></label>
+                        <input class="form-control" ng-model="detailData.MissionSpecificOrGeneralStem" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Primary Investment Objective:</strong></label>
+                        <input class="form-control" ng-model="detailData.PrimaryInvestmentObjective" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Sub-Agency:</strong></label>
+                        <input class="form-control" ng-model="detailData.Subagency" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Year Established</strong></label>
+                        <input class="form-control" ng-model="detailData.YearEstablished" type="number" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="editFund(detailData)" data-dismiss="modal"><i class="fa fa-floppy-o" aria-hidden="true" ></i> Save New Fund</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="btn btn-success" data-toggle="modal" data-target="#addFundModal"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Fund</button>
+    </div>
+
+
+</body>
+<ng-view></ng-view>
+
+</html>

@@ -1,0 +1,53 @@
+<div ng-if="detailData.Id">
+    <h1>Details</h1>
+    <hr>
+    <div>
+        <div class="form-group">
+            <label><strong>Agency:</strong></label>
+            <input class="form-control" ng-model="detailData.Agency" type="text" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Agency or Mission Related Needs:</strong></label>
+            <input class="form-control" ng-model="detailData.AgencyOrMissionRelatedNeeds" type="text" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Breif Description</strong></label>
+            <textarea class="form-control" ng-model="detailData.BriefDescription" ng-disabled="true"></textarea>
+        </div>
+        <div class="form-group">
+            <label><strong>Funding FY 2008</strong></label>
+            <input class="form-control" ng-model="detailData.FundingFY2008" type="number" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Funding FY 2009</strong></label>
+            <input class="form-control" ng-model="detailData.FundingFY2009" type="number" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Funding FY 2010</strong></label>
+            <input class="form-control" ng-model="detailData.FundingFY2010" type="number" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Investment Name:</strong></label>
+            <input class="form-control" ng-model="detailData.InvestmentName" type="text" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Mission Specific or General STEM:</strong></label>
+            <input class="form-control" ng-model="detailData.MissionSpecificOrGeneralStem" type="text" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Primary Investment Objective:</strong></label>
+            <input class="form-control" ng-model="detailData.PrimaryInvestmentObjective" type="text" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Sub-Agency:</strong></label>
+            <input class="form-control" ng-model="detailData.Subagency" type="text" ng-disabled="true" />
+        </div>
+        <div class="form-group">
+            <label><strong>Year Established</strong></label>
+            <input class="form-control" ng-model="detailData.YearEstablished" type="number" ng-disabled="true" />
+        </div>
+    </div>
+</div>
+<div ng-if="!detailData.Id">
+<h1>No Fund Has Been Selected Please Click on Details</h1>
+</div>
